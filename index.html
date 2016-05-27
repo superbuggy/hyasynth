@@ -6,6 +6,7 @@
   <script src="js/synth.js"></script>
 </head>
 <body>
-  Hya World
+  <button id ="play" onclick="gainNode.connect(context.destination)">Play</button>
+  <button id ="stop"  onclick="gainNode.disconnect(context.destination)">Stop</button>
 </body>
 </html>
