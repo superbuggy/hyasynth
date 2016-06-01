@@ -1,5 +1,14 @@
 <button id="start">Start</button>
 <button id="stop">Stop</button>
 <div id="container"></div>
-<input type="range" orient="vertical">
-<script src="/assets/js/dom-manip.js"></script>
+Waveform:
+<select id ="waveform-select">
+  <option value="flock.ugen.sinOsc">Sine</option>
+  <option value="flock.ugen.triOsc">Triangle</option>
+  <option value="flock.ugen.sawOsc">Saw</option>
+  <option value="flock.ugen.squareOsc">Square</option>
+  <option value="flock.ugen.lfNoise">Noise</option>
+</select>
+<p>
+  <input type="range" orient="vertical">
+</p>
