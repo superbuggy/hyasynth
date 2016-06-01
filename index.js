@@ -1,28 +1,25 @@
-var flock = require("flocking"),
-    enviro = flock.init();
+var express = require('express');
+var hbs = require('express-handlebars');
 
-var s = flock.synth({
-    synthDef: {
-        ugen: "flock.ugen.sin",
-        freq: {
-            ugen: "flock.ugen.lfNoise",
-            freq: 1,
-            mul: 400,
-            add: 180
-        },
-        mul: {
-            ugen: "flock.ugen.envGen",
-            envelope: {
-                type: "flock.envelope.sin",
-                duration: 0.25
-            },
-            gate: {
-                ugen: "flock.ugen.lfPulse",
-                width: .5,
-                freq: 1
-            }
-        }
-    }
+var app = express();
+
+app.set("port", process.env.PORT || 7777);
+
+app.use("/assets", express.static("public"));
+app.use("/source", express.static("src"));
+
+app.set("view engine", "hbs");
+app.engine(".hbs", hbs({
+  extname:        ".hbs",
+  partialsDir:    "views/",
+  layoutsDir:     "views/",
+  defaultLayout:  "layout-main"
+}));
+
+app.get("/", function(req,res){
+  res.render("index");
 });
 
-enviro.play();
+app.listen(7777, function(){
+  console.log("Hiya, Synth!");
+});
