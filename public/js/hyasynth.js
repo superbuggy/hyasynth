@@ -7,29 +7,34 @@
 
     var environment = flock.init();
 
-    // Expose any public functions or constructors as properties on your namesapce.
-    hyasynth.play = function () {
+    // SYNTH DEFINITIONS
+    // Flock uses js-objects to define its synthesizers
+    hyasynth.randomizedSynth = {
+        ugen: "flock.ugen.sin",
+        freq: {
+            ugen: "flock.ugen.lfNoise",
+            freq: 8,
+            mul: 380,
+            add: 60
+        },
+        mul: 0.1
+    };
+
+    hyasynth.editWave = function(synth, newWave){
+      synth.ugen = newWave;
+    };
+
+    hyasynth.play = function (synth) {
         var mySynth = flock.synth({
-            synthDef: {
-                ugen: "flock.ugen.sin",
-                freq: {
-                    ugen: "flock.ugen.lfNoise",
-                    freq: 8,
-                    mul: 380,
-                    add: 60
-                },
-                mul: 0.1
-            }
+            synthDef: synth
         });
 
-        // If you're on iOS, you will need to call in a listener for
-        // some kind of user input action, such a button click or touch handler.
-        // This is because iOS will only play sound if the user initiated it.
         environment.start();
     };
 
     hyasynth.stop = function(){
       environment.stop();
+      //initializes flock
       environment = flock.init();
     };
 
