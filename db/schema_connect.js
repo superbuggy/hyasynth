@@ -3,10 +3,10 @@ var mongoose = require("mongoose");
 var SynthSchema = new mongoose.Schema(
   {
     id: String,
-    ugen: Number,
-    freq: Number,
-    mul: Number,
-    add: Number
+    ugen: String,
+    freq: {},
+    mul: {},
+    add: {}
   },
   {
     //allows entries that don't conform to schema
