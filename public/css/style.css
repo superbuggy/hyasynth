@@ -5,6 +5,13 @@ input[type=range][orient=vertical] {
     height: 125px;
     padding: 0 5px;
 }
+
 h1 {
   color: red;
+}
+
+.vertical-text {
+	transform: rotate(90deg);
+	transform-origin: bottom left 0;
+  float: left;
 }
