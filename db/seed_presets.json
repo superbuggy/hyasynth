@@ -1,0 +1,13 @@
+[
+  {
+      "id": "randomized_synth",
+      "ugen": "flock.ugen.sin",
+      "freq": {
+          "ugen": "flock.ugen.lfNoise",
+          "freq": 8,
+          "mul": 380,
+          "add": 60
+      },
+      "mul": 0.1
+  }
+]
