@@ -1,19 +1,22 @@
-var express = require('express');
-var hbs = require('express-handlebars');
+var express             = require("express");
+var hbs                 = require("express-handlebars");
 
-var app = express();
+var mongoose            = require("./db/schema_connect");
+  var Synth             = mongoose.model("Synth");
 
-app.set("port", process.env.PORT || 7777);
+var app                 = express();
 
-app.use("/assets", express.static("public"));
-app.use("/source", express.static("src"));
+app.set("port",         process.env.PORT || 7777);
+
+app.use("/assets",      express.static("public"));
+app.use("/source",      express.static("src"));
 
 app.set("view engine", "hbs");
-app.engine(".hbs", hbs({
-  extname:        ".hbs",
-  partialsDir:    "views/",
-  layoutsDir:     "views/",
-  defaultLayout:  "layout-main"
+app.engine(".hbs",      hbs({
+  extname:             ".hbs",
+  partialsDir:          "views/",
+  layoutsDir:           "views/",
+  defaultLayout:        "layout-main"
 }));
 
 app.get("/", function(req,res){
