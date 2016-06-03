@@ -2,39 +2,40 @@
 (function () {
     "use strict";
 
-    // defines a unique global namespace via fluid library
+    // defines a unique global namespace via fluid library, this allows
+    // synths to be accessed across the app
     fluid.registerNamespace("hyasynth");
 
     var environment = flock.init();
+    hyasynth.loadedSynth = "";
 
-    // SYNTH DEFINITIONS
-    // Flock uses js-objects to define its synthesizers
-    hyasynth.randomizedSynth = {
-        ugen: "flock.ugen.sin",
-        freq: {
-            ugen: "flock.ugen.lfNoise",
-            freq: 8,
-            mul: 380,
-            add: 60
-        },
-        mul: 0.1
-    };
-
+    //edits the top-level unit generator
     hyasynth.editWave = function(synth, newWave){
       synth.ugen = newWave;
+    };
+
+    //edits an interior wave function, TODO phase this out in favor of true
+    //modular connections
+    hyasynth.editFreqMod = function(synth, newWave){
+      synth.freq.ugen = newWave;
+    };
+
+    hyasynth.loadSynth = function(synth){
+      hyasynth.loadedSynth = synth;
+      // console.log(hyasynth.randomizedSynth);
+      console.log(hyasynth.loadedSynth);
     };
 
     hyasynth.play = function (synth) {
         var mySynth = flock.synth({
             synthDef: synth
         });
-
         environment.start();
     };
 
     hyasynth.stop = function(){
       environment.stop();
-      //initializes flock
+      //re-initializes flock
       environment = flock.init();
     };
 
