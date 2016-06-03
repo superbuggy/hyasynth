@@ -3,15 +3,31 @@ input[type=range][orient=vertical] {
     -webkit-appearance: slider-vertical; /* WebKit */
     width: 8px;
     height: 125px;
-    padding: 0 5px;
+    /*padding: 0 5px;*/
 }
 
 h1 {
   color: red;
+  text-align: center;
 }
 
 .vertical-text {
 	transform: rotate(90deg);
 	transform-origin: bottom left 0;
   float: left;
+}
+
+.synths-container {
+  border: 2px gray solid;
+  max-width: 500px;
+  margin: 1em;
+}
+
+.each-synth {
+  padding: 1em;
+}
+
+.main-container {
+  max-width: 800px;
+  margin: auto;
 }
