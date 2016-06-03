@@ -1,14 +1,62 @@
-<button id="start">Start</button>
-<button id="stop">Stop</button>
-<div id="container"></div>
-Waveform:
-<select id ="waveform-select">
-  <option value="flock.ugen.sinOsc">Sine</option>
-  <option value="flock.ugen.triOsc">Triangle</option>
-  <option value="flock.ugen.sawOsc">Saw</option>
-  <option value="flock.ugen.squareOsc">Square</option>
-  <option value="flock.ugen.lfNoise">Noise</option>
-</select>
-<p>
+<div>
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+</div>
+
+<div>
+  {{> waveform_menu }}
+  <button id = "change-wave">Change Waveform</button>
+  <button id = "change-freq-wave">Frequency Modulation Waveform</button>
+</div>
+
+<div>
   <input type="range" orient="vertical">
-</p>
+  <span class='vertical-text'> Volume </span>
+</div>
+
+<div>
+  {{> create_synth_form }}
+
+  <div class="synths-container">
+
+    {{#each synths as |synth index|}}
+    <div class="each-synth">
+      <h3>
+        {{synth.id}}
+      </h3>
+
+      <form action="/synths/{{synth._id}}" method="post">
+        <input type="text" name="id" value="{{synth.id}}" placeholder="Synth Name">
+
+        <!-- identical to waveform_menu -->
+        Waveform:
+        <select id ="waveform-dropdown" name="ugen" value="{{synth.ugen}}">
+          <option value="flock.ugen.sinOsc">Sine</option>
+          <option value="flock.ugen.triOsc">Triangle</option>
+          <option value="flock.ugen.sawOsc">Saw</option>
+          <option value="flock.ugen.squareOsc">Square</option>
+          <option value="flock.ugen.lfNoise">Noise</option>
+        </select>
+
+        <!-- identical to create_synth_form -->
+        <input type="number" name="freq" value="{{synth.freq}}" placeholder="Frequency">
+        <input type="number" name="mul" value="{{synth.mul}}" min="0" max="1"
+               placeholder="Amplitude"  step="0.01">
+        <input type="number" name="add" value="{{synth.add}}" placeholder="Ampltidue Offset">
+        <button type="submit">Save</button>
+
+
+      </form>
+
+      <button data-mongo-id="{{synth._id}}" class="load-button">Load {{synth.id}}</button>
+
+      <div>
+        <form method="post" action="/synths/{{synth._id}}/delete">
+          <button type="submit">Delete</button>
+        </form>
+      </div>
+
+    </div>
+    {{/each}}
+  </div>
+</div>
