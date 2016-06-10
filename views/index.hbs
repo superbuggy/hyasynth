@@ -25,7 +25,7 @@
         {{synth.id}}
       </h3>
 
-      <form action="/synths/{{synth._id}}" method="post">
+      <form action="/api/synths/{{synth._id}}" method="post">
         <input type="text" name="id" value="{{synth.id}}" placeholder="Synth Name">
 
         <!-- identical to waveform_menu -->
@@ -51,7 +51,7 @@
       <button data-mongo-id="{{synth._id}}" class="load-button">Load {{synth.id}}</button>
 
       <div>
-        <form method="post" action="/synths/{{synth._id}}/delete">
+        <form method="post" action="/api/synths/{{synth._id}}/delete">
           <button type="submit">Delete</button>
         </form>
       </div>

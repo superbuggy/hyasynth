@@ -1,10 +1,11 @@
 var express             = require("express");
 var hbs                 = require("express-handlebars");
 var parser              = require("body-parser");
-var mongoose            = require("./db/schema_connect");
-  var Synth             = mongoose.model("Synth");
 
 var app                 = express();
+
+var mongoose            = require("./db/schema_connect");
+  var Synth             = mongoose.model("Synth");
 
 app.set("port",         process.env.PORT || 7777);
 
@@ -24,11 +25,13 @@ app.engine(".hbs",      hbs({
 
 // Create
 app.post("/synths", function(req, res){
-  Synth.create(req.body,    res.redirect("/") );
+  Synth.create(req.body,
+    res.redirect("/")
+  );
 });
 
 //Update
-app.post("/synths/:_id", function(req, res){
+app.post("/api/synths/:_id", function(req, res){
   Synth.findOneAndUpdate({ _id: req.params._id}, req.body, {new: true}).then(
     function(err, response){
       res.redirect("/");
@@ -36,7 +39,7 @@ app.post("/synths/:_id", function(req, res){
 });
 
 // Delete
-app.post("/synths/:_id/delete", function(req, res){
+app.post("/api/synths/:_id/delete", function(req, res){
   Synth.findOneAndRemove(req.params).then(function(){
       res.redirect("/");
     }
@@ -58,5 +61,5 @@ app.get("/api/synths/:_id", function(req,res){
 });
 
 app.listen(7777, function(){
-  console.log("Hiya, Synth!");
+  console.log("Hiya, Synth! 🎹");
 });
