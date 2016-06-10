@@ -46,7 +46,7 @@ app.post("/api/synths/:_id/delete", function(req, res){
   );
 });
 
-app.get("/", function(req,res){
+app.get("/", function(req, res){
   Synth.find({}).then(function(synthsFromDb) {
     res.render("index", {
       synths: synthsFromDb
