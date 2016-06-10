@@ -16,7 +16,8 @@ $(document).ready(function(){
   });
 
   startButton.click(function(){
-      hyasynth.play(hyasynth.loadedSynth);
+    console.dir("start: " + JSON.stringify(hyasynth.loadedSynth));
+    hyasynth.play(hyasynth.loadedSynth);
   });
 
   stopButton.click(function(){
@@ -26,23 +27,29 @@ $(document).ready(function(){
   loadButtons.click(function(){
       var synthMongoId = $(this).attr("data-mongo-id");
       var synthToLoad;
-      getSynthFromDb(synthMongoId, function(response){
+      getSynthFromDb(synthMongoId).then(function(response){
         synthToLoad = response;
         hyasynth.loadSynth( synthToLoad );
       });
   });
 
-  function getSynthFromDb(mongoId, callback) {
-    var returnData;
-    $.getJSON("/api/synths/" + mongoId, function (data){
+  function getSynthFromDb(mongoId) {
+    return $.getJSON("/api/synths/" + mongoId, function (data){
+        //prunes MongoDB specific data, leaving just the JSON used by flocking's synthDef
         delete data._id;
         delete data.id;
-        returnData = data;
+        delete data.__v;
     }).then(function(response){
-      callback(response);
-      return returnData;
+      response = cloneAndParse(response);
+      return response;
     });
-
   }
+
+function cloneAndParse(o) {
+  return JSON.parse(JSON.stringify(o), function(k, v) {
+    return (typeof v === "object" || isNaN(v)) ? v : v = parseFloat(v);
+  });
+}
+
 
 });
