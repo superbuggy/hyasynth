@@ -22,8 +22,6 @@
 
     hyasynth.loadSynth = function(synth){
       hyasynth.loadedSynth = synth;
-      // console.log(hyasynth.randomizedSynth);
-      console.log(hyasynth.loadedSynth);
     };
 
     hyasynth.play = function (synth) {
