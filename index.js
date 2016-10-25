@@ -2,10 +2,10 @@ var express             = require("express");
 var hbs                 = require("express-handlebars");
 var parser              = require("body-parser");
 
-var app                 = express();
-
 var mongoose            = require("./db/schema_connect");
   var Synth             = mongoose.model("Synth");
+
+var app                 = express();
 
 app.set("port",         process.env.PORT || 7777);
 
